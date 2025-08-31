@@ -4,6 +4,7 @@ from listings.api_views import StandardResultsSetPagination
 from .models import Realtor
 from .serializers import RealtorSerializer
 
+
 class Realtors(generics.ListCreateAPIView):
     queryset = Realtor.objects.all()
     serializer_class = RealtorSerializer
@@ -11,6 +12,7 @@ class Realtors(generics.ListCreateAPIView):
     filter_backends = [filters.SearchFilter]
     search_fields = ['name']
 
-class Realtor(generics.RetrieveUpdateDestroyAPIView):
+
+class RealtorDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Realtor.objects.all()
     serializer_class = RealtorSerializer

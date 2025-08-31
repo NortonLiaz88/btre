@@ -4,18 +4,21 @@ from rest_framework.response import Response
 
 from listings.models import Listing
 from realtors.models import Realtor
-from listings.serializers import ListingSerializer # Importe os serializers
+from listings.serializers import ListingSerializer  # Importe os serializers
 from realtors.serializers import RealtorSerializer
 
-@api_view(['GET']) # Define que esta view aceita apenas requisições GET
+
+@api_view(['GET'])  # Define que esta view aceita apenas requisições GET
 def latest_listings_api(request):
     """
     Retorna os 3 últimos anúncios publicados.
     Este texto aparecerá na documentação do Swagger!
     """
-    listings = Listing.objects.order_by('-list_date').filter(is_published=True)[:3]
-    serializer = ListingSerializer(listings, many=True) # many=True para listas de objetos
+    listings = Listing.objects.order_by('-list_date').filter(
+        is_published=True)[:3]
+    serializer = ListingSerializer(listings, many=True)  # many=True para listas de objetos
     return Response(serializer.data)
+
 
 @api_view(['GET'])
 def about_realtors_api(request):
@@ -34,5 +37,5 @@ def about_realtors_api(request):
         'all_realtors': realtors_serializer.data,
         'mvp_realtors': mvp_realtors_serializer.data
     }
-    
+
     return Response(data)

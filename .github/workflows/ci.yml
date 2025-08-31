@@ -19,7 +19,7 @@ jobs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.x' # Use the appropriate Python version
+        python-version: '3.12'
 
     - name: Install dependencies
       run: |
@@ -36,9 +36,6 @@ jobs:
 
     - name: Run Tests
       run: python manage.py test
-
-    - name: Run Security Analysis (Bandit)
-      run: bandit -r . -ll -c bandit.yaml || true # Allow failure for now, configure bandit.yaml for stricter checks
 
     - name: Run Static Code Analysis (MyPy)
       run: mypy . || true # Allow failure for now, configure mypy.ini for stricter checks

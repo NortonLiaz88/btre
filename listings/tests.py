@@ -2,6 +2,7 @@ from django.test import TestCase
 from .models import Listing
 from realtors.models import Realtor
 
+
 class ListingModelTest(TestCase):
     def setUp(self):
         self.realtor = Realtor.objects.create(name='John Doe')

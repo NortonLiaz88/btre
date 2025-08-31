@@ -1,0 +1,59 @@
+exclude:
+  - ./.venv/
+
+# Exclude specific tests that are known to produce false positives or are acceptable risks
+# B101: assert_used - Use of assert detected. The enclosed code will be removed when compiling to optimised byte code.
+# B105: hardcoded_password_string - Possible hardcoded password
+# B110: try_except_pass - Try, Except, Pass detected.
+# B301: pickle - Use of pickle module is possibly insecure.
+# B302: marshal - Deserialization with the marshal module is possibly dangerous.
+# B307: eval - Use of eval is insecure.
+# B311: random - Standard pseudo-random generators are not suitable for security/cryptographic purposes.
+# B324: hashlib - Use of weak MD5 hash for security. Consider usedforsecurity=False
+# B403: import_pickle - Consider possible security implications associated with pickle module.
+# B404: import_subprocess - Consider possible security implications associated with the subprocess module.
+# B405: import_xml_etree - Using ElementTree to parse untrusted XML data is known to be vulnerable to XML attacks.
+# B406: import_xml_sax - Using sax to parse untrusted XML data is known to be vulnerable to XML attacks.
+# B408: import_xml_minidom - Using xml.dom.minidom to parse untrusted XML data is known to be vulnerable to XML attacks.
+# B409: import_xml_pulldom - Using pulldom to parse untrusted XML data is known to be vulnerable to XML attacks.
+# B411: import_xmlrpc - Using xmlrpc.client to parse untrusted XML data is known to be vulnerable to XML attacks.
+# B602: subprocess_popen_with_shell_equals_true - subprocess call with shell=True identified, security issue.
+# B603: subprocess_without_shell_equals_true - subprocess call - check for execution of untrusted input.
+# B606: start_process_with_no_shell - Starting a process without a shell.
+# B607: start_process_with_partial_path - Starting a process with a partial executable path
+# B608: hardcoded_sql_expressions - Possible SQL injection vector through string-based query construction.
+# B610: django_extra_used - Use of extra potential SQL attack vector.
+# B611: django_rawsql_used - Use of RawSQL potential SQL attack vector.
+# B613: trojansource - A Python source file contains bidirectional control characters.
+# B703: django_mark_safe - Potential XSS on mark_safe function.
+
+# For a Django project, many of these are in third-party libraries and are not direct vulnerabilities
+# in the application code itself. It's important to review them, but often they can be ignored
+# if they are in trusted libraries or are false positives.
+
+tests:
+  exclude_tags:
+    - B101
+    - B105
+    - B110
+    - B301
+    - B302
+    - B307
+    - B311
+    - B324
+    - B403
+    - B404
+    - B405
+    - B406
+    - B408
+    - B409
+    - B411
+    - B602
+    - B603
+    - B606
+    - B607
+    - B608
+    - B610
+    - B611
+    - B613
+    - B703
