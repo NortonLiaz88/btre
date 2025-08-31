@@ -1,0 +1,44 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x' # Use the appropriate Python version
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        # Install additional tools if not in requirements.txt
+        pip install flake8 black bandit mypy
+
+    - name: Run Linting (Flake8)
+      run: flake8 .
+
+    - name: Run Linting (Black)
+      run: black --check .
+
+    - name: Run Tests
+      run: python manage.py test
+
+    - name: Run Security Analysis (Bandit)
+      run: bandit -r . -ll -c bandit.yaml || true # Allow failure for now, configure bandit.yaml for stricter checks
+
+    - name: Run Static Code Analysis (MyPy)
+      run: mypy . || true # Allow failure for now, configure mypy.ini for stricter checks
