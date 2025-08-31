@@ -1,0 +1,16 @@
+from rest_framework import generics
+from rest_framework import filters
+from listings.api_views import StandardResultsSetPagination
+from .models import Realtor
+from .serializers import RealtorSerializer
+
+class Realtors(generics.ListCreateAPIView):
+    queryset = Realtor.objects.all()
+    serializer_class = RealtorSerializer
+    pagination_class = StandardResultsSetPagination
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['name']
+
+class Realtor(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Realtor.objects.all()
+    serializer_class = RealtorSerializer
