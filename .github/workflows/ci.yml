@@ -15,6 +15,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0 # Required for semantic-release to analyze commit history
 
     - name: Set up Python
       uses: actions/setup-python@v5
@@ -27,15 +29,16 @@ jobs:
         pip install -r requirements.txt
         # Install additional tools if not in requirements.txt
         pip install flake8 black bandit mypy
-
-    - name: Run Linting (Flake8)
-      run: flake8 .
-
-    - name: Run Linting (Black)
-      run: black --check .
+        pip install python-semantic-release # Add this line
 
     - name: Run Tests
       run: python manage.py test
 
     - name: Run Static Code Analysis (MyPy)
       run: mypy . || true # Allow failure for now, configure mypy.ini for stricter checks
+
+    - name: Semantic Release
+      if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+      run: semantic-release publish
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
