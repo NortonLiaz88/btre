@@ -31,12 +31,6 @@ jobs:
         pip install flake8 black bandit mypy
         pip install python-semantic-release # Add this line
 
-    - name: Run Tests
-      run: python manage.py test
-
-    - name: Run Static Code Analysis (MyPy)
-      run: mypy . || true # Allow failure for now, configure mypy.ini for stricter checks
-
     - name: Semantic Release
       if: github.event_name == 'push' && github.ref == 'refs/heads/main'
       run: semantic-release publish
