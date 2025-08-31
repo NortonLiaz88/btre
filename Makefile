@@ -26,7 +26,7 @@ superuser:
 
 test:
 	@echo "Running tests..."
-	$(PYTHON) test
+	python manage.py test 
 
 clean:
 	@echo "Cleaning up..."
