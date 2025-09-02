@@ -1,10 +1,9 @@
-
-# Makefile for btre project
+# Makefile for btre project (local, sem Docker)
 
 # Variables
-PYTHON = docker-compose exec web python manage.py
+PYTHON = python manage.py
 
-.PHONY: all runserver migrations migrate superuser test deploy clean lint
+.PHONY: all runserver migrations migrate superuser test deploy clean lint seed deps lint-fix fresh-db
 
 all: runserver
 
@@ -24,9 +23,13 @@ superuser:
 	@echo "Creating a superuser..."
 	$(PYTHON) createsuperuser
 
+seed:
+	@echo "Seeding the database..."
+	$(PYTHON) seed_listings
+
 test:
 	@echo "Running tests..."
-	python manage.py test 
+	$(PYTHON) test
 
 clean:
 	@echo "Cleaning up..."
@@ -35,5 +38,28 @@ clean:
 
 lint:
 	@echo "Linting the code..."
-	# Assuming pylint is installed in the container
-	docker-compose exec web pylint **/*.py
+	python -m pylint --rcfile=.pylintrc **/*.py
+
+lint-fix:
+	@echo "Fixing linting issues..."
+	autopep8 --in-place --recursive .
+
+format:
+	@echo "Auto-formatting code..."
+	python -m isort .
+	python -m black .
+	python -m autopep8 --in-place --recursive .
+
+deps:
+	@echo "Installing dependencies..."
+	pip install -r requirements.txt
+
+fresh-db:
+	@echo "Resetting the database..."
+	rm -f db.sqlite3
+	$(MAKE) migrate
+	$(MAKE) seed
+
+deploy:
+	@echo "Deploying the application..."
+	# Add your deployment commands here

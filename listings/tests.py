@@ -1,18 +1,22 @@
+"""Module docstring."""
+
 from django.test import TestCase
-from .models import Listing
+
 from realtors.models import Realtor
+
+from .models import Listing
 
 
 class ListingModelTest(TestCase):
     def setUp(self):
-        self.realtor = Realtor.objects.create(name='John Doe')
+        self.realtor = Realtor.objects.create(name="John Doe")
         self.listing = Listing.objects.create(
             realtor=self.realtor,
-            title='Test House',
-            address='123 Main St',
-            city='Test City',
-            state='TS',
-            zipcode='12345',
+            title="Test House",
+            address="123 Main St",
+            city="Test City",
+            state="TS",
+            zipcode="12345",
             price=100000,
             bedrooms=3,
             bathrooms=2,
@@ -21,4 +25,4 @@ class ListingModelTest(TestCase):
         )
 
     def test_listing_creation(self):
-        self.assertEqual(self.listing.title, 'Test House')
+        self.assertEqual(self.listing.title, "Test House")

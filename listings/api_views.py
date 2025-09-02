@@ -1,13 +1,15 @@
-from rest_framework import generics
+"""Module docstring."""
+
+from rest_framework import filters, generics
 from rest_framework.pagination import PageNumberPagination
-from rest_framework import filters
+
 from .models import Listing
 from .serializers import ListingSerializer
 
 
 class StandardResultsSetPagination(PageNumberPagination):
     page_size = 10
-    page_size_query_param = 'page_size'
+    page_size_query_param = "page_size"
     max_page_size = 100
 
 
@@ -16,10 +18,9 @@ class Listings(generics.ListCreateAPIView):
     serializer_class = ListingSerializer
     pagination_class = StandardResultsSetPagination
     filter_backends = [filters.SearchFilter]
-    search_fields = ['title', 'city', 'state', 'zipcode']
+    search_fields = ["title", "city", "state", "zipcode"]
 
 
 class ListingDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Listing.objects.all()
     serializer_class = ListingSerializer
-
