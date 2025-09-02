@@ -8,6 +8,7 @@ from listings.models import Listing
 
 # Create your views here.
 def index(request):
+    """Listings index."""
     listings = Listing.objects.order_by("-list_date").filter(is_published=True)
 
     paginator = Paginator(listings, 3)
@@ -19,8 +20,10 @@ def index(request):
 
 
 def listing(request, listing_id):
+    """Listing detail."""
     return render(request, "listings/listing.html")
 
 
 def search(request):
+    """Search listings."""
     return render(request, "listings/search.html")

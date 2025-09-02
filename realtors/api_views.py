@@ -9,6 +9,7 @@ from .serializers import RealtorSerializer
 
 
 class Realtors(generics.ListCreateAPIView):
+    """Realtors view."""
     queryset = Realtor.objects.all()
     serializer_class = RealtorSerializer
     pagination_class = StandardResultsSetPagination
@@ -17,5 +18,6 @@ class Realtors(generics.ListCreateAPIView):
 
 
 class RealtorDetail(generics.RetrieveUpdateDestroyAPIView):
+    """Realtor detail view."""
     queryset = Realtor.objects.all()
     serializer_class = RealtorSerializer

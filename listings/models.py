@@ -8,6 +8,7 @@ from realtors.models import Realtor
 
 
 class Listing(models.Model):
+    """Listing model."""
     realtor = models.ForeignKey(
         Realtor, on_delete=models.DO_NOTHING)  # type: ignore
     title = models.CharField(max_length=200)  # type: ignore

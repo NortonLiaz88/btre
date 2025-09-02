@@ -7,6 +7,7 @@ from realtors.models import Realtor
 
 
 def index(request):
+    """Index page."""
     listings = Listing.objects.order_by(
         "-list_date").filter(is_published=True)[:3]
     context = {"listings": listings}
@@ -14,6 +15,7 @@ def index(request):
 
 
 def about(request):
+    """About page."""
     # Get all realtors
     realtors = Realtor.objects.order_by("-hire_date")
 

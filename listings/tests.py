@@ -8,7 +8,9 @@ from .models import Listing
 
 
 class ListingModelTest(TestCase):
+    """Listing model test."""
     def setUp(self):
+        """Set up test."""
         self.realtor = Realtor.objects.create(name="John Doe")
         self.listing = Listing.objects.create(
             realtor=self.realtor,
@@ -25,4 +27,5 @@ class ListingModelTest(TestCase):
         )
 
     def test_listing_creation(self):
+        """Test listing creation."""
         self.assertEqual(self.listing.title, "Test House")

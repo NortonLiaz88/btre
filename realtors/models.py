@@ -6,6 +6,7 @@ from django.db import models
 
 
 class Realtor(models.Model):
+    """Realtor model."""
     name = models.CharField(max_length=200)  # type: ignore
     photo = models.ImageField(upload_to="photos/%Y/%m/%d/")  # type: ignore
     description = models.TextField(blank=True)  # type: ignore
